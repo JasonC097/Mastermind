@@ -49,7 +49,6 @@ public class CodeBreaker {
      * @return String breakerGuess: the guess from the player
      */
 
-    //TODO finish
     public String makeGuess(){
         isGoodGuess = false;
         while (!isGoodGuess){
@@ -58,18 +57,13 @@ public class CodeBreaker {
                 System.out.println("Invalid Guess. Please try again.");
                 scnr.nextLine();
             }
-            else if (!(guessesMade.isEmpty()) && guessesMade.contains(scnr.nextLine())){
-                System.out.println("Guess already made. Try again");
-                scnr.nextLine();
-            }
             else { //TODO edit this statement to handle the guess if it is correct
+                breakerGuess = scnr.nextLine();
                 GameManager.increaseGuessCount();
                 guessesMade.add(scnr.nextLine());
                 isGoodGuess = true;
             }
-
         }
-        breakerGuess = scnr.nextLine();
         return breakerGuess;
     }
 }
