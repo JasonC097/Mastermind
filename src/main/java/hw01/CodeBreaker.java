@@ -22,12 +22,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * @author sarahdurkan
+ */
 public class CodeBreaker {
+    /** List to store guesses already made by user*/
     private static List<String> guessesMade = new ArrayList<>();
+
+    /** Boolean value dependent on if a p;ayer has produced valid input*/
     private boolean isGoodGuess;
 
+    /** Scanner object to read player input*/
     private Scanner scnr = new Scanner(System.in);
 
+    /** Guess made by the player*/
     private static String breakerGuess;
 
     public CodeBreaker(){

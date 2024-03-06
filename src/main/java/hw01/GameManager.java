@@ -21,14 +21,23 @@ package hw01;
 
 import java.util.Random;
 
+/**
+ * @author sarahdurkan
+ */
 public class GameManager {
+    /** String that represents the secret code*/
     private static String gameSolution = "";
 
+    /** Stores the number of guesses a player has made*/
     private static int guessCount = 1;
 
+    /** Total number of guesses a player can make to get a solution*/
     private static final int TOTAL_GUESSES = 12;
 
+    /** The length of a proper guess*/
     private static final int GUESS_LENGTH = 4;
+
+    /** Random generator used to create the solution*/
     private static Random random;
 
     public GameManager(){
