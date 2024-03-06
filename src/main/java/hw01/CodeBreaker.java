@@ -62,7 +62,7 @@ public class CodeBreaker {
                 System.out.println("Guess already made. Try again");
                 scnr.nextLine();
             }
-            else{ //TODO edit this statement to handle the guess if it is correct
+            else { //TODO edit this statement to handle the guess if it is correct
                 GameManager.increaseGuessCount();
                 guessesMade.add(scnr.nextLine());
                 isGoodGuess = true;
