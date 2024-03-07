@@ -68,7 +68,6 @@ public class CodeMaker {
         for (int i = 0; i < answerCopy.length(); i++){
             response = response.concat("-");
         }
-
         return response;
     }
 
