@@ -41,6 +41,16 @@ public class CodeMaker {
         this.codeAnswer = manualCode;
     }
 
+    /**
+     * Getter function to access the code answer.
+     *
+     * @return the code to break
+     * @author sarahdurkan
+     */
+    public String getCodeAnswer(){
+        return codeAnswer;
+    }
+
 
     /**
      * Goes through a user's guess and compares it to the answer

@@ -12,7 +12,7 @@
  * Package: hw01
  * Class: CodeBreaker
  *
- * Description:
+ * Description: Functions used by the player who is trying to guess the code in Mastermind.
  *
  * ****************************************
  */
@@ -47,6 +47,7 @@ public class CodeBreaker {
      * using only digits 1 through 6 is entered. Increases the number of guesses used.
      *
      * @return String breakerGuess: the guess from the player
+     * @author sarahdurkan
      */
 
     public String makeGuess(){
@@ -57,10 +58,9 @@ public class CodeBreaker {
                 System.out.println("Invalid Guess. Please try again.");
                 scnr.nextLine();
             }
-            else { //TODO edit this statement to handle the guess if it is correct
-                breakerGuess = scnr.nextLine();
+            else {
+                breakerGuess = scnr.next();
                 GameManager.increaseGuessCount();
-                guessesMade.add(scnr.nextLine());
                 isGoodGuess = true;
             }
         }

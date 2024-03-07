@@ -12,7 +12,8 @@
  * Package: hw01
  * Class: GameManager
  *
- * Description:
+ * Description: Simple class to store game information such as the length of the solution,
+ * how many guesses have been made, and generate the game solution.
  *
  * ****************************************
  */
@@ -44,22 +45,46 @@ public class GameManager {
 
     }
 
+    /**
+     * Access the number of guesses made
+     * @author sarahdurkan
+     */
     public static int getGuessCount(){
         return guessCount;
     }
 
+    /**
+     * Access the game solution
+     * @author sarahdurkan
+     */
     public static String getGameSolution(){
         return gameSolution;
     }
 
+    /**
+     * Access the guess length
+     * @author sarahdurkan
+     */
     public static int getGuessLength(){
         return GUESS_LENGTH;
     }
 
+    /**
+     * Access the total number of guesses allowed per game
+     * @author sarahdurkan
+     */
     public static int getTotalGuesses(){
         return TOTAL_GUESSES;
     }
+
+    /**
+     * Generates a 4-digit solution for a Mastermind game
+     *
+     * @return a String representation of the game solution
+     * @author sarahdurkan
+     */
     public static String generateSolution(){
+        gameSolution = "";
         random = new Random();
         for (int i = 0; i < GUESS_LENGTH; i++){
             int digit = random.nextInt(6)+1;
@@ -67,8 +92,24 @@ public class GameManager {
         }
         return gameSolution;
     }
+
+    /**
+     * Increment the number of guesses made by a player as they make guesses
+     *
+     * @author sarahdurkan
+     */
     public static void increaseGuessCount(){
         guessCount++;
+    }
+
+    /**
+     * Function to manually set the number of guesses
+     *
+     * @param numGuesses the number that guessCount should be set to
+     * @author sarahdurkan
+     */
+    public static void setGuessCount(int numGuesses){
+        guessCount = numGuesses;
     }
 
 
