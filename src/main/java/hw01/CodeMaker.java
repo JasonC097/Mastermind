@@ -26,6 +26,10 @@ package hw01;
 public class CodeMaker {
     /** The answer from GameManager */
     private String codeAnswer;
+
+    /**
+     * Normally called CodeMaker that calls GameManager.generateSolution for generating solution
+     */
     public CodeMaker(){
         // Call GameManager's generate solution to
         this.codeAnswer = GameManager.generateSolution();
