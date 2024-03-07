@@ -21,18 +21,39 @@ class CodeMakerTest {
     void tearDown() {
     }
 
+    /**
+     * Tries random user tests and compares the result of checkGuess with
+     * expected results
+     */
     @Test
     void checkGuess() {
         String userGuess = "1331";
         String expectedResponse = "++--";
         String response = codeMaker.checkGuess(userGuess);
         assertEquals(expectedResponse, response);
+
         userGuess = "4231";
         expectedResponse = "*++-";
         response = codeMaker.checkGuess(userGuess);
         assertEquals(expectedResponse, response);
+
         userGuess = "1643";
         expectedResponse = "**++";
+        response = codeMaker.checkGuess(userGuess);
+        assertEquals(expectedResponse, response);
+
+        userGuess = "4613";
+        expectedResponse = "****";
+        response = codeMaker.checkGuess(userGuess);
+        assertEquals(expectedResponse, response);
+
+        userGuess = "5555";
+        expectedResponse = "----";
+        response = codeMaker.checkGuess(userGuess);
+        assertEquals(expectedResponse, response);
+
+        userGuess = "3164";
+        expectedResponse = "++++";
         response = codeMaker.checkGuess(userGuess);
         assertEquals(expectedResponse, response);
     }

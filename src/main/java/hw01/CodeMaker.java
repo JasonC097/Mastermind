@@ -53,11 +53,11 @@ public class CodeMaker {
             char checkNum = breakGuess.charAt(i);
             if (checkNum == this.codeAnswer.charAt(i)) {
                 response = response.concat("*");
-                if (i + 1< breakGuess.length()) { //Ensure not out of bounds when skipping over number
-                answerCopy = answerCopy.substring(0,i) + answerCopy.substring(i+1);
-                }
-                else {
-                    answerCopy = answerCopy.substring(0,i);
+                int locationOfNum = answerCopy.indexOf(checkNum);
+                if (locationOfNum + 1 < answerCopy.length()){
+                    answerCopy = answerCopy.substring(0, locationOfNum) + answerCopy.substring(locationOfNum + 1);
+                } else {
+                    answerCopy = answerCopy.substring(0, locationOfNum);
                 }
             }
         }
