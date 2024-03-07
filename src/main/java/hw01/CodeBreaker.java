@@ -30,7 +30,7 @@ public class CodeBreaker {
     private static List<String> guessesMade = new ArrayList<>();
 
     /** Boolean value dependent on if a p;ayer has produced valid input*/
-    private boolean isGoodGuess;
+    private static boolean isGoodGuess;
 
     /** Scanner object to read player input*/
     private Scanner scnr = new Scanner(System.in);
@@ -39,6 +39,26 @@ public class CodeBreaker {
     private static String breakerGuess;
 
     public CodeBreaker(){
+    }
+
+    /**
+     * Access the guess made
+     * @author sarahdurkan
+     */
+    public static String getBreakerGuess(){
+        return breakerGuess;
+    }
+
+    /**
+     * Manually set the guess made by the breaker
+     * @author sarahdurkan
+     */
+    public static void setBreakerGuess(String guess){
+        breakerGuess = guess;
+    }
+
+    public static boolean getIsGoodGuess(){
+        return isGoodGuess;
     }
 
     /**
@@ -57,10 +77,9 @@ public class CodeBreaker {
                 System.out.println("Invalid Guess. Please try again.");
                 scnr.nextLine();
             }
-            else { //TODO edit this statement to handle the guess if it is correct
+            else {
                 breakerGuess = scnr.nextLine();
                 GameManager.increaseGuessCount();
-                guessesMade.add(scnr.nextLine());
                 isGoodGuess = true;
             }
         }
