@@ -39,7 +39,6 @@ public class MastermindMain {
 
     public static void startGame(){
         GameManager.generateSolution();
-        System.out.println(GameManager.getGameSolution()); //TODO get rid of this line
         System.out.println("Guess the code, using numbers between 1 and 6. You have 12 guesses.");
     }
 }
