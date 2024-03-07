@@ -1,3 +1,21 @@
+/* *****************************************
+ * CSCI 205 - Software Engineering and Design
+ * Spring 2024
+ * Instructor: Prof. Lily Romano / Prof. Joshua Stough
+ *
+ * Name: Jason Chung
+ * Section: 02 / 61
+ * Date: 3/6/2024
+ * Time: 2:42 PM
+ *
+ * Project: csci205_hw
+ * Package: hw01
+ * Class: CodeMaker
+ *
+ * Description: Teamwork project
+ *
+ * ****************************************
+ */
 package hw01;
 
 import org.junit.jupiter.api.AfterEach;
@@ -7,7 +25,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CodeMakerTest {
-
+    /** CodeMaker initializer*/
     private CodeMaker codeMaker;
 
 

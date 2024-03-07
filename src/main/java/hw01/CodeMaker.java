@@ -12,7 +12,7 @@
  * Package: hw01
  * Class: CodeMaker
  *
- * Description:
+ * Description: Teamwork project
  *
  * ****************************************
  */
@@ -53,12 +53,7 @@ public class CodeMaker {
             char checkNum = breakGuess.charAt(i);
             if (checkNum == this.codeAnswer.charAt(i)) {
                 response = response.concat("*");
-                int locationOfNum = answerCopy.indexOf(checkNum);
-                if (locationOfNum + 1 < answerCopy.length()){
-                    answerCopy = answerCopy.substring(0, locationOfNum) + answerCopy.substring(locationOfNum + 1);
-                } else {
-                    answerCopy = answerCopy.substring(0, locationOfNum);
-                }
+                answerCopy = rewriteAnswerCopy(answerCopy.indexOf(checkNum), answerCopy);
             }
         }
         // Checks to see if remaining numbers are in the guess but not in the right spot
@@ -66,12 +61,7 @@ public class CodeMaker {
             String checkNum = Character.toString(breakGuess.charAt(i));
             if (answerCopy.contains(checkNum)) {
                 response = response.concat("+");
-                int locationOfNum = answerCopy.indexOf(checkNum);
-                if (locationOfNum + 1 < answerCopy.length()){
-                    answerCopy = answerCopy.substring(0, locationOfNum) + answerCopy.substring(locationOfNum + 1);
-                } else {
-                    answerCopy = answerCopy.substring(0, locationOfNum);
-                }
+                answerCopy = rewriteAnswerCopy(answerCopy.indexOf(checkNum), answerCopy);
             }
         }
         // Fill the rest of response with numbers in the code with "+" and/or wrong numbers with "-"
@@ -80,5 +70,22 @@ public class CodeMaker {
         }
 
         return response;
+    }
+
+    /**
+     * Helper method to rewrite answer to follow along what was checked already
+     *
+     * @param locationOfNum - index of the number in the answer code
+     * @param answerCopy1 - the rewritten answer copy that updates what has been checked
+     * @return - new updated copy of the answerCopy to help follow along what was checked
+     */
+    private static String rewriteAnswerCopy(int locationOfNum, String answerCopy1) {
+
+        if (locationOfNum + 1 < answerCopy1.length()) {
+            answerCopy1 = answerCopy1.substring(0, locationOfNum) + answerCopy1.substring(locationOfNum + 1);
+        } else {
+            answerCopy1 = answerCopy1.substring(0, locationOfNum);
+        }
+        return answerCopy1;
     }
 }
