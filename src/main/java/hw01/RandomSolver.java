@@ -18,15 +18,31 @@
  */
 package hw01;
 
+import java.util.Random;
+
 public class RandomSolver extends SolverCodeBreaker{
 
     private String guess = "";
 
-    //private
+    private boolean correct = false;
+    /** Random generator used to create the solution*/
+    private static Random random;
+
     @Override
     public void play() {
-        //do{
+        do{
+            // generate a random guess
+            random = new Random();
+            for (int i = 0; i < GameManager.getGuessLength(); i++){
+                int digit = random.nextInt(6)+1;
+                guess += Integer.toString(digit);
+            }
 
-        //} while
+            // check if the guess is the solution
+            if (guess.equals(GameManager.getGameSolution())){
+                correct = true;
+            }
+
+        } while (!correct);
     }
 }
