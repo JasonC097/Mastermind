@@ -25,6 +25,7 @@ public class RandomSolver extends SolverCodeBreaker{
     private String guess = "";
 
     private boolean correct = false;
+
     /** Random generator used to create the solution*/
     private static Random random;
 
@@ -37,6 +38,9 @@ public class RandomSolver extends SolverCodeBreaker{
                 int digit = random.nextInt(6)+1;
                 guess += Integer.toString(digit);
             }
+
+            //Increase the guess count
+            GameManager.increaseGuessCount();
 
             // check if the guess is the solution
             if (guess.equals(GameManager.getGameSolution())){
