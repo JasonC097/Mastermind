@@ -5,12 +5,12 @@
  *
  * Name: Sarah Durkan
  * Section: 02
- * Date: 3/19/24
- * Time: 9:21 AM
+ * Date: 3/20/24
+ * Time: 2:05 PM
  *
  * Project: csci205_hw
  * Package: hw01
- * Class: SolverCodeBreaker
+ * Class: RandomSolver
  *
  * Description:
  *
@@ -18,6 +18,15 @@
  */
 package hw01;
 
-public abstract class SolverCodeBreaker {
-    public abstract void play();
+public class RandomSolver extends SolverCodeBreaker{
+
+    private String guess = "";
+
+    //private
+    @Override
+    public void play() {
+        //do{
+
+        //} while
+    }
 }
