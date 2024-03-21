@@ -47,6 +47,7 @@ public class MiniMaxSolver extends SolverCodeBreaker{
      * MiniMaxSolver constructor that creates the set of all possible solutions
      */
     public MiniMaxSolver() {
+        //Step 1
         //Ensures each digit is 1 through 6
         Pattern p = Pattern.compile("[1-6][1-6][1-6][1-6]");
         for (int i = SMALLEST_NUM; i <= LARGEST_NUM; i++){
@@ -65,17 +66,18 @@ public class MiniMaxSolver extends SolverCodeBreaker{
     @Override
     public void play(){
         CodeMaker game = new CodeMaker();
-        String currentGuess = FIRST_GUESS;
+        String currentGuess = FIRST_GUESS; //Step 2
         while (true){
-            String result = game.checkGuess(currentGuess);
+            String result = game.checkGuess(currentGuess); //Step 3
             if (result.equals("****")){
-                break;
+                break; //Step 4
             }
             else {
                 //Helper game to find other with same result as the current guess
                 CodeMaker helperGame = new CodeMaker(currentGuess);
                 TreeSet<Integer> helperSet = setOfAnswers;
-                helperSet.remove(Integer.valueOf(currentGuess));
+                helperSet.remove(Integer.valueOf(currentGuess)); //Exclude current guess since not right9o8i
+                //Step 5
                 for (Integer code : setOfAnswers){
                     String helperResult = helperGame.checkGuess(Integer.toString(code));
                     if (!helperResult.equals(result)){
