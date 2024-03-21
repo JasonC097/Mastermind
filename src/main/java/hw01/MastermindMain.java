@@ -44,10 +44,10 @@ public class MastermindMain {
     /** Scanner object used to capture CodeBreaker input*/
     private static Scanner scnr = new Scanner(System.in);
     private static SolverCodeBreaker s;
-
     private static int numGames;
-
     private static boolean isValidNum = false;
+    private static long startTime;
+    private static long totalRuntime;
 
     /**
      * Main method used to play a game of Mastermind.
@@ -60,12 +60,28 @@ public class MastermindMain {
         if (scnr.nextLine().strip().equalsIgnoreCase("s")) {
             askForSolverMethod();
             getNumGamesToSim();
-
+            simAndReportStats();
         }
         else{
             playUserGameMode();
         }
 
+    }
+
+    private static void simAndReportStats() {
+        startTime = System.nanoTime();
+
+        //play the game numGames times
+        for (int i = 0; i <= numGames; i++){
+            maker = new CodeMaker(); //generate a new solution
+            s.play();
+        }
+
+        //calculate the total runtime in seconds
+        totalRuntime = (System.nanoTime()-startTime);
+
+        //report the sim statistics
+        System.out.println(s.reportStatistics());
     }
 
     private static void getNumGamesToSim() {
@@ -177,6 +193,14 @@ public class MastermindMain {
     public static void checkGuess(){
         String result = maker.checkGuess(guess);
         System.out.println(guess + " --> "+ result);
+    }
+
+    public static int getNumGames() {
+        return numGames;
+    }
+
+    public static long getTotalRuntime() {
+        return totalRuntime;
     }
 
 }
