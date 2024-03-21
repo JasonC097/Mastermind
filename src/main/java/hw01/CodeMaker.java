@@ -61,44 +61,32 @@ public class CodeMaker {
      */
     public String checkGuess(String breakGuess){
         String response = "";
-        String answerCopy = this.codeAnswer;
+        StringBuilder answerCopy = new StringBuilder(this.codeAnswer);
         // Finds numbers in right spot first and exclude them in the copy of the answer
         for (int i = 0; i < breakGuess.length(); i++) {
             char checkNum = breakGuess.charAt(i);
             if (checkNum == this.codeAnswer.charAt(i)) {
                 response = response.concat("*");
-                answerCopy = rewriteAnswerCopy(answerCopy.indexOf(checkNum), answerCopy);
+                answerCopy.setCharAt(i, 'n'); //n is place holder
             }
         }
         // Checks to see if remaining numbers are in the guess but not in the right spot
+        String answerCopyStr = answerCopy.toString(); //To use .contains method from String class
         for (int i = 0; i < breakGuess.length(); i++){
             String checkNum = Character.toString(breakGuess.charAt(i));
-            if (answerCopy.contains(checkNum)) {
+            if (answerCopyStr.contains(checkNum)) {
                 response = response.concat("+");
-                answerCopy = rewriteAnswerCopy(answerCopy.indexOf(checkNum), answerCopy);
+                StringBuilder answerCopyTemp = new StringBuilder(answerCopyStr);
+                answerCopyTemp.setCharAt(answerCopyStr.indexOf(checkNum), 'n'); //n is place holder
+                answerCopyStr = answerCopyTemp.toString();
             }
         }
         // Fill the rest of response with numbers in the code with "+" and/or wrong numbers with "-"
-        for (int i = 0; i < answerCopy.length(); i++){
-            response = response.concat("-");
+        for (int i = 0; i < answerCopyStr.length(); i++){
+            if (answerCopyStr.charAt(i) != 'n') {
+                response = response.concat("-");
+            }
         }
         return response;
-    }
-
-    /**
-     * Helper method to rewrite answer to follow along what was checked already
-     *
-     * @param locationOfNum - index of the number in the answer code
-     * @param answerCopy1 - the rewritten answer copy that updates what has been checked
-     * @return - new updated copy of the answerCopy to help follow along what was checked
-     */
-    private static String rewriteAnswerCopy(int locationOfNum, String answerCopy1) {
-
-        if (locationOfNum + 1 < answerCopy1.length()) {
-            answerCopy1 = answerCopy1.substring(0, locationOfNum) + answerCopy1.substring(locationOfNum + 1);
-        } else {
-            answerCopy1 = answerCopy1.substring(0, locationOfNum);
-        }
-        return answerCopy1;
     }
 }

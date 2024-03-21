@@ -74,5 +74,8 @@ class CodeMakerTest {
         expectedResponse = "++++";
         response = codeMaker.checkGuess(userGuess);
         assertEquals(expectedResponse, response);
+
+        CodeMaker test = new CodeMaker("2421");
+        assertEquals("*+++", test.checkGuess("1224"));
     }
 }

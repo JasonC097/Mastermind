@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
  * Sources used:
  * <a href="https://github.com/NathanDuran/Mastermind-Five-Guess-Algorithm?tab=readme-ov-file">Nathan Duran Mastermind Five Guess Algorithm</a>
  */
-public class MiniMaxSolver {
+public class MiniMaxSolver extends SolverCodeBreaker{
     private TreeSet<Integer> s = new TreeSet<>();
 
     private static final int LARGEST_NUM = 6666;
@@ -47,4 +47,9 @@ public class MiniMaxSolver {
             }
         }
     }
+    @Override
+    public void play(){
+
+    }
+
 }
