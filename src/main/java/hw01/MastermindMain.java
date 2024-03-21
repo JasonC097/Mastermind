@@ -151,6 +151,7 @@ public class MastermindMain {
     public static void endGame(){
         if (mgr.getGuessCount() > mgr.getTotalGuesses()){
             System.out.println("Sorry, ran out of attempts!");
+            System.out.println("The answer was " + maker.getCodeAnswer());
         }
         else if (result.equals("****")){
             System.out.println("You win!! You guessed the code in "+ mgr.getGuessCount()+ " moves.");

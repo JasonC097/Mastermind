@@ -30,26 +30,74 @@ import java.util.regex.Pattern;
  * <a href="https://github.com/NathanDuran/Mastermind-Five-Guess-Algorithm?tab=readme-ov-file">Nathan Duran Mastermind Five Guess Algorithm</a>
  */
 public class MiniMaxSolver extends SolverCodeBreaker{
-    private TreeSet<Integer> s = new TreeSet<>();
+    /** The set containing all possible secret code */
+    private TreeSet<Integer> setOfAnswers = new TreeSet<>();
 
+    /** Constant for the "largest" secret code possible*/
     private static final int LARGEST_NUM = 6666;
 
+    /** Constant for the "smallest" secret code possible*/
     private static final int SMALLEST_NUM = 1111;
 
-    private static final int FIRST_GUESS = 1122;
+    /** Constant for the first guess of each game for finding solution*/
+    private static final String FIRST_GUESS = "1122";
 
+    /**
+     * @author Jason Chung
+     * MiniMaxSolver constructor that creates the set of all possible solutions
+     */
     public MiniMaxSolver() {
+        //Step 1
+        //Ensures each digit is 1 through 6
         Pattern p = Pattern.compile("[1-6][1-6][1-6][1-6]");
         for (int i = SMALLEST_NUM; i <= LARGEST_NUM; i++){
             Matcher matches = p.matcher(String.valueOf(i));
             if (matches.matches()) {
-                s.add(i);
+                setOfAnswers.add(i);
             }
         }
     }
+
+    /**
+     * @author Jason Chung
+     * The infamous five guess algorithm by Donal Kunth in getting the code
+     * for Mastermind in five guesses
+     */
     @Override
     public void play(){
-
+        CodeMaker game = new CodeMaker();
+        String currentGuess = FIRST_GUESS; //Step 2
+        while (true){
+            String result = game.checkGuess(currentGuess); //Step 3
+            if (result.equals("****")){
+                break; //Step 4
+            }
+            else {
+                //Helper game to find other with same result as the current guess
+                CodeMaker helperGame = new CodeMaker(currentGuess);
+                TreeSet<Integer> helperSet = setOfAnswers;
+                helperSet.remove(Integer.valueOf(currentGuess)); //Exclude current guess since not right9o8i
+                //Step 5
+                for (Integer code : setOfAnswers){
+                    String helperResult = helperGame.checkGuess(Integer.toString(code));
+                    if (!helperResult.equals(result)){
+                        setOfAnswers.remove(code);
+                    }
+                }
+            }
+        }
     }
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
