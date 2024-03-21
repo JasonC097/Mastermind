@@ -28,6 +28,7 @@ public class CodeMaker {
     private String codeAnswer;
 
     /**
+     * @author Jason Chung
      * Normally called CodeMaker that calls GameManager.generateSolution for generating solution
      */
     public CodeMaker(){
@@ -35,7 +36,8 @@ public class CodeMaker {
         this.codeAnswer = GameManager.generateSolution();
     }
     /**
-     * Constructor to help with JUnit tests
+     * @author Jason Chung
+     * Constructor to help with JUnit tests and some solving algorithms
      */
     public CodeMaker(String manualCode){
         this.codeAnswer = manualCode;
@@ -53,6 +55,7 @@ public class CodeMaker {
 
 
     /**
+     * @author Jason Chung
      * Goes through a user's guess and compares it to the answer
      *
      * @param breakGuess - a String of numbers that the user guesses is the answer
