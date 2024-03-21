@@ -18,6 +18,7 @@
  */
 package hw01;
 
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class MastermindMain {
@@ -42,6 +43,11 @@ public class MastermindMain {
 
     /** Scanner object used to capture CodeBreaker input*/
     private static Scanner scnr = new Scanner(System.in);
+    private static SolverCodeBreaker s;
+
+    private static int numGames;
+
+    private static boolean isValidNum = false;
 
     /**
      * Main method used to play a game of Mastermind.
@@ -50,6 +56,46 @@ public class MastermindMain {
      * @author sarahdurkan
      */
     public static void main(String[] args){
+        System.out.println("Run Mastermind in Solver mode or User mode? [s | u]");
+        if (scnr.nextLine().strip().equalsIgnoreCase("s")) {
+            askForSolverMethod();
+            getNumGamesToSim();
+
+        }
+        else{
+            playUserGameMode();
+        }
+
+    }
+
+    private static void getNumGamesToSim() {
+        do {
+            System.out.println("How many games would you like to simulate?");
+            if (scnr.hasNextInt()) {
+                numGames = Integer.parseInt(scnr.nextLine());
+                isValidNum = true;
+            }
+            else{
+                System.out.println("Please enter an integer.");
+                scnr.nextLine();
+            }
+        } while (!isValidNum);
+    }
+
+    private static void askForSolverMethod() {
+        System.out.println("Choose solver to run (Random, Minimax, Genetic) [r | m | g]");
+        if (scnr.nextLine().strip().equalsIgnoreCase("r")){
+            s = new RandomSolver();
+        }
+        else if (scnr.nextLine().strip().equalsIgnoreCase("m")){
+            s = new MiniMaxSolver();
+        }
+        else {
+            s = new GeneticSolver();
+        }
+    }
+
+    private static void playUserGameMode() {
         do {
             maker = new CodeMaker();
             startGame();
