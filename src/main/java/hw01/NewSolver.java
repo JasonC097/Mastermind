@@ -18,17 +18,24 @@
  */
 package hw01;
 
-import java.util.Random;
-
+/**
+ * SolverCodeBreaker concrete class that uses a StringBuilder to
+ * cycle through guesses until it the guess is correct.
+ *
+ * @author sarahdurkan
+ */
 public class NewSolver extends SolverCodeBreaker{
 
+    /** Guess for each simulation*/
     private static StringBuilder guess;
 
-    private boolean correct;
-
+    /** Number of guesses taken*/
     private static int newSolGuessCount;
 
+    /** Instantiate CodeMaker for new Code*/
     private static CodeMaker cm;
+
+    /** Scoring pegs from each guess*/
     private String scoringPegs;
 
     @Override
@@ -37,18 +44,34 @@ public class NewSolver extends SolverCodeBreaker{
         guessAndCheck();
     }
 
+    /**
+     * Method to return the name of the solver being used
+     * @return "Build Solver"
+     *
+     * @author sarahdurkan
+     */
     @Override
     public String getSolverName() {
         return "Build Solver";
     }
 
+    /**
+     * Re-initialize the game components
+     * @author sarahdurkan
+     */
     private void resetGameStats() {
-        correct = false;
-        newSolGuessCount = 0;
+        newSolGuessCount = 1;
         guess = new StringBuilder();
         cm = MastermindMain.getMaker();
     }
 
+    /**
+     * Move through each number until the scoring pegs have an additional *
+     * Increments the guess count even if the guess length is less than the solution length.
+     * Continues until the guess is correct.
+     *
+     * @author sarahdurkan
+     */
     private void guessAndCheck() {
 
         guess.append("1");

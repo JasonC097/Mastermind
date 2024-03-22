@@ -20,15 +20,24 @@ package hw01;
 
 import java.util.Random;
 
+/**
+ * @author sarahdurkan
+ *
+ * A solver class that uses randomization to make guesses
+ * in order to solve the Mastermind game.
+ */
 public class RandomSolver extends SolverCodeBreaker{
 
+    /** Initialize an empty guess*/
     private String guess = "";
 
+    /** Boolean value to determine whether a guess is correct*/
     private boolean correct;
 
     /** Random generator used to create the solution*/
     private static Random random;
 
+    /** The number of guesses taken for a single simulated game*/
     private static int randGuessCount;
 
     @Override
@@ -40,16 +49,31 @@ public class RandomSolver extends SolverCodeBreaker{
         } while (!correct);
     }
 
+    /**
+     * Method to return the name of the solver being used
+     * @return "Build Solver"
+     *
+     * @author sarahdurkan
+     */
     @Override
     public String getSolverName() {
         return "Random Solver";
     }
 
+    /**
+     * Re-initialize the game components
+     * @author sarahdurkan
+     */
     private void resetGameStats() {
         correct = false;
         randGuessCount = 0;
     }
 
+    /**
+     * Method to check whether a guess is equal to the Mastermind solution
+     *
+     * @author sarahdurkan
+     */
     private void checkRandomGuess() {
         // check if the guess is the solution
         if (guess.equals(GameManager.getGameSolution())){
@@ -58,6 +82,12 @@ public class RandomSolver extends SolverCodeBreaker{
         }
     }
 
+    /**
+     * Method used to generate a single random guess
+     * Increments the number of guesses taken in a single game.
+     *
+     * @author sarahdurkan
+     */
     private void genRandomGuess() {
         //reset guess to an empty string
         guess = "";

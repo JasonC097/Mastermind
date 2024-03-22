@@ -44,10 +44,20 @@ public class MastermindMain {
 
     /** Scanner object used to capture CodeBreaker input*/
     private static Scanner scnr = new Scanner(System.in);
+
+    /** Solver to simulate Mastermind games*/
     private static SolverCodeBreaker s;
+
+    /** Number of games to simulate - provided by user*/
     private static int numGames;
+
+    /** Boolean to indicate whether the number of simulations desired is valid*/
     private static boolean isValidNum = false;
+
+    /** Start time of all simulations*/
     private static double startTime;
+
+    /** Total time it takes to run all desired simulations*/
     private static double totalRuntime;
 
     /**
@@ -69,6 +79,14 @@ public class MastermindMain {
 
     }
 
+    /**
+     * Method to simulate the desired number of games.
+     *
+     * Additionally calculates the total runtime of the simulations
+     * and prints the simulation statistics.
+     *
+     * @author sarahdurkan
+     */
     private static void simAndReportStats() {
         startTime = System.nanoTime();
 
@@ -85,6 +103,13 @@ public class MastermindMain {
         System.out.println(s.reportStatistics());
     }
 
+    /**
+     * Method to get the desired number of games to simulate from a user.
+     *
+     * Asks for an integer until one is input.
+     *
+     * @author sarahdurkan
+     */
     private static void getNumGamesToSim() {
         do {
             System.out.println("How many games would you like to simulate?");
@@ -99,6 +124,13 @@ public class MastermindMain {
         } while (!isValidNum);
     }
 
+    /**
+     * Method to get the desired solver method from the user.
+     *
+     * Converts the game to User Mode if an invalid solver method is input.
+     *
+     * @author sarahdurkan
+     */
     private static void askForSolverMethod() {
         System.out.println("Choose solver to run (Random, Minimax, Builder) [r | m | b]");
         String solverChoice = scnr.nextLine().strip();
@@ -116,6 +148,14 @@ public class MastermindMain {
         }
     }
 
+    /**
+     * Method to run Mastermind in User Mode
+     *
+     * The user manually inputs the guesses until they run out of guesses
+     * or they correctly guess the solution.
+     *
+     * @author sarahdurkan
+     */
     private static void playUserGameMode() {
         do {
             maker = new CodeMaker();
@@ -201,14 +241,32 @@ public class MastermindMain {
         System.out.println(guess + " --> "+ result);
     }
 
+    /**
+     * Returns the number of Games that the user wants to simulate
+     *
+     * @return numGames - numbr of games input by the user
+     * @author sarahdurkan
+     */
     public static int getNumGames() {
         return numGames;
     }
 
+    /**
+     * Returns the total time it took to run the desired number of simulations
+     *
+     * @return totalRunTime - the total number of seconds it takes for all simulations to run
+     * @author sarahdurkan
+     */
     public static double getTotalRuntime() {
         return totalRuntime;
     }
 
+    /**
+     * Used to have a consistent solution for each simulated game
+     *
+     * @return maker - the CodeMaker containing the solution for a game of Mastermind
+     * @author sarahdurkan
+     */
     public static CodeMaker getMaker() {
         return maker;
     }
