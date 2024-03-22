@@ -18,8 +18,6 @@
  */
 package hw01;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
@@ -33,26 +31,19 @@ import java.util.regex.Pattern;
  * <a href="https://github.com/NathanDuran/Mastermind-Five-Guess-Algorithm?tab=readme-ov-file">Nathan Duran Mastermind Five Guess Algorithm</a>
  */
 public class MiniMaxSolver extends SolverCodeBreaker {
-    /**
-     * The set containing all possible secret code
-     */
+    /** The set containing all possible secret code */
     private TreeSet<Integer> setOfAnswers = new TreeSet<>();
 
-    /**
-     * Constant for the "largest" secret code possible
-     */
+    /** Constant for the "largest" secret code possible */
     private static final int LARGEST_NUM = 6666;
 
-    /**
-     * Constant for the "smallest" secret code possible
-     */
+    /** Constant for the "smallest" secret code possible */
     private static final int SMALLEST_NUM = 1111;
 
-    /**
-     * Constant for the first guess of each game for finding solution
-     */
+    /** Constant for the first guess of each game for finding solution */
     private static final String FIRST_GUESS = "1122";
 
+    /** Game used each time it is played */
     private CodeMaker game;
 
     /**
@@ -62,6 +53,14 @@ public class MiniMaxSolver extends SolverCodeBreaker {
     public MiniMaxSolver() {
         //Step 1
         //Ensures each digit is 1 through 6
+        generateAllPossibleSolutions();
+        this.game = new CodeMaker();
+    }
+
+    /**
+     * Method that generates the possible answers from 1111-6666
+     */
+    private void generateAllPossibleSolutions() {
         Pattern p = Pattern.compile("[1-6][1-6][1-6][1-6]");
         for (int i = SMALLEST_NUM; i <= LARGEST_NUM; i++) {
             Matcher matches = p.matcher(String.valueOf(i));
@@ -69,7 +68,6 @@ public class MiniMaxSolver extends SolverCodeBreaker {
                 setOfAnswers.add(i);
             }
         }
-        this.game = new CodeMaker();
     }
 
     /**
@@ -118,6 +116,14 @@ public class MiniMaxSolver extends SolverCodeBreaker {
                         }
                     }
                     findBestElim.put(strUnusedGuess, score);
+                }
+                // Find the guess with the smallest elimination to use next
+                int smallestMaxScore = LARGEST_NUM;
+                for (String guess : findBestElim.keySet()){
+                    if (findBestElim.get(guess) < smallestMaxScore){
+                        currentGuess = guess;
+                        smallestMaxScore = findBestElim.get(guess);
+                    }
                 }
             }
         }
