@@ -59,7 +59,7 @@ public class NewSolver extends SolverCodeBreaker{
      * Re-initialize the game components
      * @author sarahdurkan
      */
-    private void resetGameStats() {
+    public void resetGameStats() {
         newSolGuessCount = 1;
         guess = new StringBuilder();
         cm = MastermindMain.getMaker();
@@ -72,7 +72,7 @@ public class NewSolver extends SolverCodeBreaker{
      *
      * @author sarahdurkan
      */
-    private void guessAndCheck() {
+    public void guessAndCheck() {
 
         guess.append("1");
         scoringPegs = cm.checkGuess(String.valueOf(guess));
@@ -112,5 +112,17 @@ public class NewSolver extends SolverCodeBreaker{
 
         //Add number of moves taken to the list of all moves
         numMoves.add(newSolGuessCount);
+    }
+
+    public static StringBuilder getGuess() {
+        return guess;
+    }
+
+    public static int getNewSolGuessCount() {
+        return newSolGuessCount;
+    }
+
+    public String getScoringPegs() {
+        return scoringPegs;
     }
 }

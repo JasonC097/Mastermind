@@ -64,7 +64,7 @@ public class RandomSolver extends SolverCodeBreaker{
      * Re-initialize the game components
      * @author sarahdurkan
      */
-    private void resetGameStats() {
+    public void resetGameStats() {
         correct = false;
         randGuessCount = 0;
     }
@@ -74,7 +74,7 @@ public class RandomSolver extends SolverCodeBreaker{
      *
      * @author sarahdurkan
      */
-    private void checkRandomGuess() {
+    public void checkRandomGuess() {
         // check if the guess is the solution
         if (guess.equals(GameManager.getGameSolution())){
             SolverCodeBreaker.numMoves.add(randGuessCount);
@@ -88,7 +88,7 @@ public class RandomSolver extends SolverCodeBreaker{
      *
      * @author sarahdurkan
      */
-    private void genRandomGuess() {
+    public void genRandomGuess() {
         //reset guess to an empty string
         guess = "";
 
@@ -101,5 +101,32 @@ public class RandomSolver extends SolverCodeBreaker{
 
         //Increase the guess count
         randGuessCount++;
+    }
+
+    /**
+     * Getter method to return whether a guess is correct
+     *
+     * @author sarahdurkan
+     */
+    public boolean isCorrect() {
+        return correct;
+    }
+
+    /**
+     * Getter method to return the random guess made
+     *
+     * @author sarahdurkan
+     */
+    public String getGuess() {
+        return guess;
+    }
+
+    /**
+     * Getter method to return the number of guesses taken
+     *
+     * @author sarahdurkan
+     */
+    public static int getRandGuessCount() {
+        return randGuessCount;
     }
 }
