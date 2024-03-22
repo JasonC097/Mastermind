@@ -29,6 +29,7 @@ public class MastermindMain {
     /** CodeBreaker object to represent a player to be used in each game*/
     private static CodeBreaker breaker = new CodeBreaker();
 
+
     /** CodeMaker object to be used in each game*/
     private static CodeMaker maker;
 
@@ -46,8 +47,8 @@ public class MastermindMain {
     private static SolverCodeBreaker s;
     private static int numGames;
     private static boolean isValidNum = false;
-    private static long startTime;
-    private static long totalRuntime;
+    private static double startTime;
+    private static double totalRuntime;
 
     /**
      * Main method used to play a game of Mastermind.
@@ -78,7 +79,7 @@ public class MastermindMain {
         }
 
         //calculate the total runtime in seconds
-        totalRuntime = (System.nanoTime()-startTime);
+        totalRuntime = (System.nanoTime()-startTime)/1000000000.0;
 
         //report the sim statistics
         System.out.println(s.reportStatistics());
@@ -99,15 +100,19 @@ public class MastermindMain {
     }
 
     private static void askForSolverMethod() {
-        System.out.println("Choose solver to run (Random, Minimax, Genetic) [r | m | g]");
-        if (scnr.nextLine().strip().equalsIgnoreCase("r")){
+        System.out.println("Choose solver to run (Random, Minimax, Builder) [r | m | b]");
+        String solverChoice = scnr.nextLine().strip();
+        if (solverChoice.equalsIgnoreCase("r")) {
             s = new RandomSolver();
-        }
-        else if (scnr.nextLine().strip().equalsIgnoreCase("m")){
+        } else if (solverChoice.equalsIgnoreCase("m")) {
             s = new MiniMaxSolver();
+        } else if (solverChoice.equalsIgnoreCase("b")) {
+            s = new NewSolver();
         }
-        else {
-            s = new GeneticSolver();
+        else //play user mode if invalid solver choice is input
+        {
+            System.out.println("Invalid solver method. Running User Mode...");
+            playUserGameMode();
         }
     }
 
@@ -200,8 +205,12 @@ public class MastermindMain {
         return numGames;
     }
 
-    public static long getTotalRuntime() {
+    public static double getTotalRuntime() {
         return totalRuntime;
+    }
+
+    public static CodeMaker getMaker() {
+        return maker;
     }
 
 }

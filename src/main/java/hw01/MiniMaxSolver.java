@@ -87,6 +87,11 @@ public class MiniMaxSolver extends SolverCodeBreaker{
             }
         }
     }
+
+    @Override
+    public String getSolverName() {
+        return "MiniMax Solver";
+    }
 }
 
 

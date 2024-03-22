@@ -33,6 +33,8 @@ public abstract class SolverCodeBreaker {
 
     public abstract void play();
 
+    public abstract String getSolverName();
+
     public String reportStatistics(){
         // calculate the total number of moves takes for all games
         for (int i : numMoves){
@@ -50,12 +52,12 @@ public abstract class SolverCodeBreaker {
         longest = numMoves.get(numMoves.size()-1);
 
         return String.format("RESULTS:%n" +
-                "solverName - Statistics:%n"+
+                getSolverName() + " - Statistics:%n"+
                 "Number of games: " + MastermindMain.getNumGames() +"%n"+
                 "Average: " + average + " turns%n"+
                 "Shortest: "+ shortest+" turns%n"+
                 "Longest: "+ longest +" turns%n"+
-                "Total time: "+ MastermindMain.getTotalRuntime() + "ns%n"+
+                "Total time: "+ MastermindMain.getTotalRuntime() + " s%n"+
                 "Goodbye!");
     }
 }

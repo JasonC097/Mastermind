@@ -40,6 +40,11 @@ public class RandomSolver extends SolverCodeBreaker{
         } while (!correct);
     }
 
+    @Override
+    public String getSolverName() {
+        return "Random Solver";
+    }
+
     private void resetGameStats() {
         correct = false;
         randGuessCount = 0;
