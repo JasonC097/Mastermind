@@ -40,8 +40,11 @@ public class MiniMaxSolver extends SolverCodeBreaker {
     /** Constant for the "smallest" secret code possible */
     private static final int SMALLEST_NUM = 1111;
 
-    /** Constant for the first guess of each game for finding solution */
+    /** Kunth's first guess of each game for finding solution is "1122" */
     private static final String FIRST_GUESS = "1122";
+
+    /** The number of guesses it takes for Minimax solver to solve*/
+    private int numGuesses = 0;
 
     /** Game used each time it is played */
     private CodeMaker game;
@@ -58,6 +61,7 @@ public class MiniMaxSolver extends SolverCodeBreaker {
     }
 
     /**
+     * @author Jason Chung
      * Method that generates the possible answers from 1111-6666
      */
     private void generateAllPossibleSolutions() {
@@ -72,61 +76,151 @@ public class MiniMaxSolver extends SolverCodeBreaker {
 
     /**
      * @author Jason Chung
+     * Getter method of getting the number of guesses it takes to find the answer
+     * Used for JUnit testing
+     * @return int of the number of guesses taken
+     */
+    public int getNumGuesses () {return this.numGuesses;}
+
+    /**
+     * @author Jason Chung
      * The infamous five guess algorithm by Donal Kunth in getting the code
      * for Mastermind in five guesses
      */
     @Override
     public void play() {
         String currentGuess = FIRST_GUESS; //Step 2
+        TreeSet <Integer> unusedGuesses = new TreeSet<>();
+        unusedGuesses.addAll(setOfAnswers);
         while (true) {
-            String result = this.game.checkGuess(currentGuess); //Step 3
-            if (result.equals("****")) {
-                break; //Step 4
+            String result = processGuess(currentGuess, unusedGuesses); //Step 3
+            if (result.equals("****")) { //Step 4
+                SolverCodeBreaker.numMoves.add(this.numGuesses);
+                break;
             } else {
-                //Helper game to find other with same result as the current guess
-                CodeMaker helperGame = new CodeMaker(currentGuess);
-                TreeSet<Integer> unusedGuesses = setOfAnswers;
-                unusedGuesses.remove(Integer.valueOf(currentGuess)); //Exclude current guess since not right9o8i
-                //Step 5
-                for (Integer code : setOfAnswers) {
-                    String helperResult = helperGame.checkGuess(Integer.toString(code));
-                    if (!helperResult.equals(result)) {
-                        setOfAnswers.remove(code);
-                    }
-                }
+                // Step 5
+                removeImpossibleGuesses(currentGuess, result);
                 //Step 6
-                TreeMap<String, Integer> findBestElim = new TreeMap<>();
-                for (Integer code : unusedGuesses) {
-                    TreeMap<String, Integer> helperMap = new TreeMap<>();
-                    String strUnusedGuess = Integer.toString(code);
-                    CodeMaker helpGame = new CodeMaker(strUnusedGuess);
-                    for (Integer setCode : setOfAnswers) {
-                        String response = helpGame.checkGuess(Integer.toString(setCode));
-                        if (!(helperMap.containsKey(response))) {
-                            helperMap.put(response, 1);
-                        } else {
-                            helperMap.put(response, findBestElim.get(response) + 1);
-                        }
-                    }
-                    // Finds the largest amount of elimination strUnusedGuess can find
-                    int score = 0;
-                    for (Integer value : helperMap.values()){
-                        if (value > score){
-                            score = value;
-                        }
-                    }
-                    findBestElim.put(strUnusedGuess, score);
-                }
-                // Find the guess with the smallest elimination to use next
-                int smallestMaxScore = LARGEST_NUM;
-                for (String guess : findBestElim.keySet()){
-                    if (findBestElim.get(guess) < smallestMaxScore){
-                        currentGuess = guess;
-                        smallestMaxScore = findBestElim.get(guess);
-                    }
-                }
+                TreeMap <String, Integer> findBestElim = maxHitOfGuessesRemaining(unusedGuesses);
+                // Find the guesses with the smallest elimination to use next
+                TreeSet <String> guessesWithMin = findGuessesWithMinElim(findBestElim);
+                // Determine the next guess
+                currentGuess = findNextGuess(currentGuess, guessesWithMin);
             }
         }
+    }
+
+    /**
+     * @author Jason Chung
+     * Helper method of using the guess in the game
+     * @param currentGuess - String of the guess used for the game
+     * @param unusedGuesses - Set of all the unused guesses made in the game
+     * @return - String of the result from the guess
+     */
+    private String processGuess(String currentGuess, TreeSet<Integer> unusedGuesses) {
+        String result = this.game.checkGuess(currentGuess); //Step 3
+        unusedGuesses.remove(Integer.valueOf(currentGuess)); //currentGuess used to get result
+        this.setOfAnswers.remove(Integer.valueOf(currentGuess));
+        this.numGuesses = this.numGuesses + 1; //Did 1 guess
+        return result;
+    }
+
+    /**
+     * @author Jason Chung
+     * Helper method in finding the next guess to try
+     * @param currentGuess - String of the guess used
+     * @param guessesWithMin - set of all the guesses with the same minimum eliminations
+     * @return String of the next guess to use by the Minimax Solver
+     */
+    private String findNextGuess(String currentGuess, TreeSet<String> guessesWithMin) {
+        String oldGuess = currentGuess;
+        // Prioritize a min guess that is in setOfAnswers
+        for (String guess : guessesWithMin){
+            if (setOfAnswers.contains(Integer.valueOf(guess))){
+                currentGuess = guess;
+                break;
+            }
+        }
+        // Grabs the smallest best guess to use next in case none are in the setOfAnswers
+        if (currentGuess.equals(oldGuess)){
+            currentGuess = guessesWithMin.first();
+        }
+        return currentGuess;
+    }
+
+    /**
+     * @author Jason Chung
+     * Helper method to finding all the guesses that has the lowest minimum score
+     * @param findBestElim - Map containing the maximum eliminations each guess gives
+     * @return - Set of all the guesses with the same lowest elimination
+     */
+    private static TreeSet<String> findGuessesWithMinElim(TreeMap<String, Integer> findBestElim) {
+        int smallestMaxScore = LARGEST_NUM;
+        TreeSet<String> guessesWithMin = new TreeSet<>();
+        for (String guess : findBestElim.keySet()){
+            if (findBestElim.get(guess) < smallestMaxScore){
+                smallestMaxScore = findBestElim.get(guess);
+            }
+        }
+        for (String guess : findBestElim.keySet()){
+            if (findBestElim.get(guess) == smallestMaxScore){
+                guessesWithMin.add(guess);
+            }
+        }
+        return guessesWithMin;
+    }
+
+    /**
+     * @author Jason Chung
+     * Helper method of removing the guesses that would NOT give the same
+     * response to the one used to currently guess
+     * @param currentGuess - the guess used currently
+     * @param result
+     */
+    private void removeImpossibleGuesses(String currentGuess, String result) {
+        //Helper game to find other with same result as the current guess
+        CodeMaker helperGame = new CodeMaker(currentGuess);
+
+        TreeSet<Integer> helperSet = new TreeSet<>();
+        helperSet.addAll(setOfAnswers);
+        for (Integer code : helperSet) {
+            String helperResult = helperGame.checkGuess(Integer.toString(code));
+            if (!helperResult.equals(result)) {
+                setOfAnswers.remove(code);
+            }
+        }
+    }
+
+    /**
+     * @author Jason Chung
+     * Helper method to finding the maximum number of elimination of the remaining guesses not used
+     * @param unusedGuesses - set of guesses the solver has not used yet
+     * @return - Map of each response to the number of eliminations out of the remaining guesses unused
+     */
+    private TreeMap<String, Integer> maxHitOfGuessesRemaining(TreeSet<Integer> unusedGuesses) {
+        TreeMap<String, Integer> findBestElim = new TreeMap<>();
+        for (Integer code : unusedGuesses) {
+            TreeMap<String, Integer> helperMap = new TreeMap<>();
+            String strUnusedGuess = Integer.toString(code);
+            CodeMaker helpGame = new CodeMaker(strUnusedGuess);
+            for (Integer setCode : setOfAnswers) {
+                String response = helpGame.checkGuess(Integer.toString(setCode));
+                if (helperMap.containsKey(response)) {
+                    helperMap.put(response, helperMap.get(response) + 1);
+                } else {
+                    helperMap.put(response, 1);
+                }
+            }
+            // Finds the largest amount of elimination strUnusedGuess can find
+            int score = 0;
+            for (Integer value : helperMap.values()){
+                if (value > score){
+                    score = value;
+                }
+            }
+            findBestElim.put(strUnusedGuess, score);
+        }
+        return findBestElim;
     }
 
     @Override
