@@ -20,15 +20,24 @@ package hw01;
 
 import java.util.Random;
 
+/**
+ * @author sarahdurkan
+ *
+ * A solver class that uses randomization to make guesses
+ * in order to solve the Mastermind game.
+ */
 public class RandomSolver extends SolverCodeBreaker{
 
+    /** Initialize an empty guess*/
     private String guess = "";
 
+    /** Boolean value to determine whether a guess is correct*/
     private boolean correct;
 
     /** Random generator used to create the solution*/
     private static Random random;
 
+    /** The number of guesses taken for a single simulated game*/
     private static int randGuessCount;
 
     @Override
@@ -40,17 +49,32 @@ public class RandomSolver extends SolverCodeBreaker{
         } while (!correct);
     }
 
+    /**
+     * Method to return the name of the solver being used
+     * @return "Build Solver"
+     *
+     * @author sarahdurkan
+     */
     @Override
     public String getSolverName() {
         return "Random Solver";
     }
 
-    private void resetGameStats() {
+    /**
+     * Re-initialize the game components
+     * @author sarahdurkan
+     */
+    public void resetGameStats() {
         correct = false;
         randGuessCount = 0;
     }
 
-    private void checkRandomGuess() {
+    /**
+     * Method to check whether a guess is equal to the Mastermind solution
+     *
+     * @author sarahdurkan
+     */
+    public void checkRandomGuess() {
         // check if the guess is the solution
         if (guess.equals(GameManager.getGameSolution())){
             SolverCodeBreaker.numMoves.add(randGuessCount);
@@ -58,7 +82,13 @@ public class RandomSolver extends SolverCodeBreaker{
         }
     }
 
-    private void genRandomGuess() {
+    /**
+     * Method used to generate a single random guess
+     * Increments the number of guesses taken in a single game.
+     *
+     * @author sarahdurkan
+     */
+    public void genRandomGuess() {
         //reset guess to an empty string
         guess = "";
 
@@ -71,5 +101,32 @@ public class RandomSolver extends SolverCodeBreaker{
 
         //Increase the guess count
         randGuessCount++;
+    }
+
+    /**
+     * Getter method to return whether a guess is correct
+     *
+     * @author sarahdurkan
+     */
+    public boolean isCorrect() {
+        return correct;
+    }
+
+    /**
+     * Getter method to return the random guess made
+     *
+     * @author sarahdurkan
+     */
+    public String getGuess() {
+        return guess;
+    }
+
+    /**
+     * Getter method to return the number of guesses taken
+     *
+     * @author sarahdurkan
+     */
+    public static int getRandGuessCount() {
+        return randGuessCount;
     }
 }
