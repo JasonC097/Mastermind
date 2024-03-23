@@ -30,7 +30,7 @@ public class GameManager {
     private static String gameSolution = "";
 
     /** Stores the number of guesses a player has made*/
-    private static int guessCount = 1;
+    private static int guessCount = 0;
 
     /** Total number of guesses a player can make to get a solution*/
     private static final int TOTAL_GUESSES = 12;

@@ -53,7 +53,7 @@ public class CodeBreaker {
     public String makeGuess(){
         isGoodGuess = false;
         while (!isGoodGuess){
-            System.out.println("Guess "+ GameManager.getGuessCount()+": ");
+            System.out.println("Guess " + (GameManager.getGuessCount() + 1) +": ");
             if (!scnr.hasNext("[1-6]{4}")){
                 System.out.println("Invalid Guess. Please try again.");
                 scnr.nextLine();

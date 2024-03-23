@@ -217,7 +217,7 @@ public class MastermindMain {
             isDone = true;
         }
         else{
-            mgr.setGuessCount(1);
+            mgr.setGuessCount(0);
         }
     }
 

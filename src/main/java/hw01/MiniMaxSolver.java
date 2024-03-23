@@ -51,13 +51,9 @@ public class MiniMaxSolver extends SolverCodeBreaker {
 
     /**
      * @author Jason Chung
-     * MiniMaxSolver constructor that creates the set of all possible solutions
+     * MiniMaxSolver constructor creates the game
      */
     public MiniMaxSolver() {
-        //Step 1
-        //Ensures each digit is 1 through 6
-        generateAllPossibleSolutions();
-        this.game = new CodeMaker();
     }
 
     /**
@@ -89,6 +85,9 @@ public class MiniMaxSolver extends SolverCodeBreaker {
      */
     @Override
     public void play() {
+        //Step 1
+        //Ensures each digit is 1 through 6
+        startGame();
         String currentGuess = FIRST_GUESS; //Step 2
         TreeSet <Integer> unusedGuesses = new TreeSet<>();
         unusedGuesses.addAll(setOfAnswers);
@@ -108,6 +107,16 @@ public class MiniMaxSolver extends SolverCodeBreaker {
                 currentGuess = findNextGuess(currentGuess, guessesWithMin);
             }
         }
+    }
+
+    /**
+     * @author Jason Chung
+     * Helper method for starting up a new game
+     */
+    private void startGame() {
+        generateAllPossibleSolutions();
+        this.numGuesses = 0;
+        this.game = new CodeMaker();
     }
 
     /**
