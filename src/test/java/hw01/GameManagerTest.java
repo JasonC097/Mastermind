@@ -1,5 +1,6 @@
 package hw01;
 
+import hw01.game.GameManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

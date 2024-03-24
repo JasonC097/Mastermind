@@ -16,9 +16,13 @@
  *
  * ****************************************
  */
-package hw01;
+package hw01.game;
 
-import java.sql.SQLOutput;
+import hw01.solver.MiniMaxSolver;
+import hw01.solver.NewSolver;
+import hw01.solver.RandomSolver;
+import hw01.solver.SolverCodeBreaker;
+
 import java.util.Scanner;
 
 public class MastermindMain {

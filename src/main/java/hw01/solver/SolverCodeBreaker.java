@@ -16,11 +16,12 @@
  *
  * ****************************************
  */
-package hw01;
+package hw01.solver;
+
+import hw01.game.MastermindMain;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public abstract class SolverCodeBreaker {

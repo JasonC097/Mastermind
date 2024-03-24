@@ -18,7 +18,7 @@
  * ****************************************
  */
 
-package hw01;
+package hw01.game;
 
 import java.util.Random;
 

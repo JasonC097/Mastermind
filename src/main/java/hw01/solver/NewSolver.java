@@ -16,7 +16,11 @@
  *
  * ****************************************
  */
-package hw01;
+package hw01.solver;
+
+import hw01.game.CodeMaker;
+import hw01.game.MastermindMain;
+import hw01.solver.SolverCodeBreaker;
 
 /**
  * SolverCodeBreaker concrete class that uses a StringBuilder to
@@ -24,7 +28,7 @@ package hw01;
  *
  * @author sarahdurkan
  */
-public class NewSolver extends SolverCodeBreaker{
+public class NewSolver extends SolverCodeBreaker {
 
     /** Guess for each simulation*/
     private static StringBuilder guess;

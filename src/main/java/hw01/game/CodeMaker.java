@@ -16,7 +16,7 @@
  *
  * ****************************************
  */
-package hw01;
+package hw01.game;
 
 /**
  * @author Jason Chung

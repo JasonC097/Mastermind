@@ -1,13 +1,12 @@
 package hw01;
 
+import hw01.game.CodeBreaker;
+import hw01.game.GameManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.Scanner;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class CodeBreakerTest {
 

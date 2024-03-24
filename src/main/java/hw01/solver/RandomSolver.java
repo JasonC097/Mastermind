@@ -16,7 +16,10 @@
  *
  * ****************************************
  */
-package hw01;
+package hw01.solver;
+
+import hw01.game.GameManager;
+import hw01.solver.SolverCodeBreaker;
 
 import java.util.Random;
 
@@ -26,7 +29,7 @@ import java.util.Random;
  * A solver class that uses randomization to make guesses
  * in order to solve the Mastermind game.
  */
-public class RandomSolver extends SolverCodeBreaker{
+public class RandomSolver extends SolverCodeBreaker {
 
     /** Initialize an empty guess*/
     private String guess = "";
